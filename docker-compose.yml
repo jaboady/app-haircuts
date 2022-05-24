@@ -3,7 +3,7 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_USER: thierry
+      POSTGRES_USER: aiza
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
@@ -28,3 +28,11 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
