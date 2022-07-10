@@ -17,14 +17,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/body_request'
+              $ref: '#/components/schemas/authentication_request'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/body_response'
+                $ref: '#/components/schemas/authentication_response'
         400:
           description: incorrect request data
         401:
@@ -36,7 +36,7 @@ paths:
 
 components:
   schemas:
-    body_request:
+    authentication_request:
       type: object
       required:
         - email
@@ -52,7 +52,7 @@ components:
           minimum: 1
           example: 123
           format: password
-    body_response:
+    authentication_response:
       type: object
       required:
         - token

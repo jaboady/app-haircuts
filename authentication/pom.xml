@@ -88,19 +88,58 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>
-                                ${project.basedir}/src/main/resources/authentication.yml
-                            </inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/authentication.yml</inputSpec>
+
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.apphaircuts.mfcp.reboot.authentication.controller</apiPackage>
-                            <modelPackage>com.apphaircuts.mfcp.reboot.authentication.model</modelPackage>
                             <library>spring-boot</library>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
+
+                            <modelNameSuffix>${swagger.modelNameSuffix}</modelNameSuffix>
+
+                            <generateApis>true</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateModels>true</generateModels>
+                            <generateModelTests>false</generateModelTests>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+
+                            <environmentVariables>
+                                <supportingFiles>
+                                    ApiUtil.java
+                                </supportingFiles>
+                            </environmentVariables>
+
                             <configOptions>
-                                <delegatePattern>true</delegatePattern>
+                                <configOptions>
+                                    <interfaceOnly>true</interfaceOnly>
+                                    <useBeanValidation>true</useBeanValidation>
+                                    <performBeanValidation>true</performBeanValidation>
+                                    <modelPackage>${swagger.modelPackage}</modelPackage>
+                                    <apiPackage>${swagger.basePackage}.controller</apiPackage>
+                                    <sourceFolder>/src/main/java</sourceFolder>
+                                    <implFolder>/src/main/java</implFolder>
+                                    <serializableModel>true</serializableModel>
+                                </configOptions>
                             </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- used to read swagger.properties-->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/src/main/resources/swagger.properties</file>
+                            </files>
                         </configuration>
                     </execution>
                 </executions>
