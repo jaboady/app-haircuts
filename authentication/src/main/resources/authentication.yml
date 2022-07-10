@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: AUTHENTICATION
+  description: 'login'
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/tkt842/IAM/1.0.0
+
+paths:
+  /login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_request'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/body_response'
+        400:
+          description: incorrect request data
+        401:
+          description: incorrect password
+        404:
+          description: user not found
+        500:
+          description: server error
+
+components:
+  schemas:
+    body_request:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          minimum: 1
+          example: admin
+          format: email
+        password:
+          type: string
+          minimum: 1
+          example: 123
+          format: password
+    body_response:
+      type: object
+      required:
+        - token
+        - id
+        - email
+        - firstName
+        - lastName
+      properties:
+        token:
+          type: string
+          example: >-
+            eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYwMjcxNDEyOX0.bh1KFLyYCBIQcdjByNqL9fKuKn2Yxxk324sQFOh8U6UrCQLP1O6i81DAfLOVNiTxN2s_O0D-ICgYjhv9hbj0PA
+        account:
+          type: string
+          example: >
+            id: 1
+            email: admin@gmail.com
+            firstName: First
+            lastName: Last
